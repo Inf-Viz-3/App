@@ -49,22 +49,6 @@ function buildFacesBar(data) {
     });
 }
 
-var similarFacesButtonPlusClick = function() {
-    face_index++;
-    fetch_data()
-}
-
-var similarFacesButtonMinusClick = function(e) {
-    if (face_index >0) {
-        face_index--;
-        fetch_data()
-    } else {
-        // TODO: Deactivate
-        document.getElementById("faces-simbar-btn-plus")
-    }
-    
-}
-
 function fetch_data() {
     var url = new URL('/api/faces_by_params', location.href)
     let params = filterJSParams;
@@ -123,24 +107,31 @@ function get_image_url(){
     return `${base_url}/${imgfolder}/${imgname}.jpg`
 }
 
+let preloadFaceImg = function (url, frameImageFront, frameImageBack, useBoxFrameImageFront) {
+    let imgCache = new Image();
+
+    imgCache.onload = function() {
+        frameImageBack.attr("href", url)
+        rotateImageIndex = (rotateImageIndex + 1) % availableCenturyImages.length;
+        useBoxFrameImageFront.classed("crossfade", true);
+
+        setTimeout(() => {
+            frameImageFront.attr("href", url)
+            useBoxFrameImageFront.classed("crossfade", false);
+        }, 2000);
+    };
+    imgCache.src = url;
+}
+
 function set_portrait(){
     let warpBoxBack = d3.select(`#usebox-svg-warped-face-2`);
     let warpBoxFront = d3.select(`#usebox-svg-warped-face-1`);
     let warpImageBack = d3.select(`#warped-face-2`)
     let warpImageFront = d3.select(`#warped-face-1`)
     let url = get_image_url();
-    warpImageBack.attr("href", url).on("error", function() {
-      warpImageBack.attr("href", "../static/img/missing_face.svg")
-      url = "../static/img/missing_face.svg";
-    });
 
-    warpBoxFront.classed("crossfade", true);
-
-    setTimeout(() => {
-      warpImageFront.attr("href", url)
-      warpBoxFront.classed("crossfade", false);
-    }, 1000);
-    
+    preloadFaceImg(url, warpImageFront, warpImageBack, warpBoxFront);
+        
 }
 
 var updateView = function(params, type) {
