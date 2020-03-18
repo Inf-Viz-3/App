@@ -107,6 +107,22 @@ function get_image_url(){
     return `${base_url}/${imgfolder}/${imgname}.jpg`
 }
 
+let preloadFaceImg = function (url, frameImageFront, frameImageBack, useBoxFrameImageFront) {
+    let imgCache = new Image();
+
+    imgCache.onload = function() {
+        frameImageBack.attr("href", url)
+        rotateImageIndex = (rotateImageIndex + 1) % availableCenturyImages.length;
+        useBoxFrameImageFront.classed("crossfade", true);
+
+        setTimeout(() => {
+            frameImageFront.attr("href", url)
+            useBoxFrameImageFront.classed("crossfade", false);
+        }, 2000);
+    };
+    imgCache.src = url;
+}
+
 function set_portrait(){
     let warpBoxBack = d3.select(`#usebox-svg-warped-face-2`);
     let warpBoxFront = d3.select(`#usebox-svg-warped-face-1`);
@@ -114,7 +130,7 @@ function set_portrait(){
     let warpImageFront = d3.select(`#warped-face-1`)
     let url = get_image_url();
 
-    preloadImg(url, warpImageFront, warpImageBack, warpBoxFront);
+    preloadFaceImg(url, warpImageFront, warpImageBack, warpBoxFront);
         
 }
 
