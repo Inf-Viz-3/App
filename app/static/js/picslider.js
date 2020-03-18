@@ -63,21 +63,60 @@ function update_pic_slider(data){
   const childs = time_slider.childNodes[0]
   if(childs != undefined)childs.remove();
 
+  const tooltips = document.getElementsByClassName('tooltip-inner')
+  if(tooltips != undefined){
+    while(tooltips.length > 0){
+      tooltips[0].parentNode.removeChild(tooltips[0]);
+    }
+  }
+
+  const tooltiparrows = document.getElementsByClassName('arrow')
+  if(tooltiparrows != undefined){
+    while(tooltiparrows.length > 0){
+      tooltiparrows[0].parentNode.removeChild(tooltiparrows[0]);
+    }
+  }
+
   init_pic_slider(data)
 }
 
 function init_pic_slider(data){
+  console.log(data)
+  if (filterJSParams['selected_time'] == "ALL"){
+    var para = document.createElement("p")
+    var bold = document.createElement("strong")
+    var br = document.createElement("br")
+    var bold_2 = document.createElement("strong")
+    var text_1 = document.createTextNode("View a different face from a different time by selecting the ")
+    var text_2 = document.createTextNode("Timespan ")
+    var text_3 = document.createTextNode("control or by selecting the ")
+    var text_4 = document.createTextNode("Dimension ")
+    var text_5 = document.createTextNode("control which filters on age, gender or color group.")
+    var text_6 = document.createTextNode("Have fun!")
+    para.appendChild(text_1)
+    bold.appendChild(text_2)
+    para.appendChild(bold)
+    para.appendChild(text_3)
+    bold_2.appendChild(text_4)
+    para.appendChild(bold_2)
+    para.appendChild(text_5)
+    para.appendChild(br)
+    para.appendChild(text_6)
+
+    
+    var time_slider = document.getElementById("time_slider")
+    time_slider.appendChild(para)
+    return;
+  }
   const svg = d3.select("#time_slider")
         .append("svg")
-        .attr("class", "w-100 h-100")
+        // .attr("class", "w-100 h-100")
         .attr("viewBox", "0 0 750 150")
         .attr("version", 1.1)
         .attr("xmlns", "http://www.w3.org/2000/svg")
-  
-  if (filterJSParams['selected_time'] == "ALL"){
-    return;
-  }
 
+
+  
   data.map(function(d){return map_data(d, filterJSParams['selected_time'])});
   var xBand = d3
       .scaleBand()
@@ -104,10 +143,10 @@ function init_pic_slider(data){
       .scaleLinear()
       .domain([0, d3.max(data, d => d.count)])
       .nice()
-      .range([height - margin.bottom, margin.top]);
+      .range([height - margin.bottom, margin.top])
 
-  var yAxis = g => g.attr('transform', `translate(${width - margin.right},0)`)
-      .call(g => g.select('.domain').remove());
+  // var yAxis = g => g.attr('transform', `translate(${width - margin.right},0)`)
+      // .call(g => g.select('.domain').remove());
 
   var bars = svg
   .append('g')
@@ -117,6 +156,7 @@ function init_pic_slider(data){
   var barsEnter = bars
       .enter()
       .append('rect')
+      .attr('id', d => 'rect-' + d.time)
       .attr('x', d => xBand(d.time))
       .attr('y', d => y(d.count))
       .attr('height', d => y(0) - y(d.count))
@@ -125,8 +165,21 @@ function init_pic_slider(data){
   var draw = selected => {
     barsEnter
     .merge(bars)
-    .attr('fill', d => (d.time === selected ? '#bad80a' : '#e0e0e0'));      
+    .attr('fill', d => (d.time === selected ? '#bad80a' : '#e0e0e0'))     
+    .attr("data-toggle", "tooltip")
+    .attr("data-html","true")
+    .attr("data-placement", "top" )
+    .attr("title", (x, d, z) => {       
+        return `${Math.trunc(Math.exp(x.count))} Faces`
+    })
+    $('[data-toggle="tooltip"]').tooltip('hide')
+    $('#rect-'+selected).tooltip('show')
   };
+
+  // Create Tooltips
+  $(function () {
+      $('[data-toggle="tooltip"]').tooltip()
+  })
 
   var slider;
   let begin = previousBegin;
@@ -206,8 +259,20 @@ function init_pic_slider(data){
   }
   draw(selected);
   
-  svg.append('g').call(yAxis);
+  // svg.append('g').call(yAxis);
   svg.append('g').call(slider);
+  var text = svg.append("text")
+        .attr("transform", "translate(45,0) rotate(-90)")
+        .attr("y", 0 - margin.left)
+        .attr("x", 0 - (height / 2))
+        .attr("dy", "1em")
+        .style("font-size", "smaller")
+        .style("text-anchor", "middle")
+        .text("Amount faces");
+
+  text.append("title")
+    .text("Height bar indicates amount of faces for the selected timespan")
+  // svg.append("g").attr('transform', 'translate(15,0)').call(d3.axisLeft(y));
 }
 
 function dragged_debounce(d) {

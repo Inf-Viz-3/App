@@ -16,4 +16,27 @@
     justify-content: center;
 }
 
+.custom-select-custom{
+    display: inline-block;
+    width: 100%;
+    height: calc(1.5em + .75rem + 2px);
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #495057;
+    vertical-align: middle;
+    background: #fff;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+    -webkit-appearance: none;
+}
 
+.prepend-custom .input-group-prepend {
+    width : 30%; /*adjust as needed*/
+  }
+  
+.prepend-custom .input-group-prepend label {
+    width: 100%;
+    overflow: hidden;
+  }
+  

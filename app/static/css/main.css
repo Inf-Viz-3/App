@@ -169,3 +169,39 @@ body {
 .focus image.transparent {
   opacity:0;
 }
+
+#detailfilter-age-label {
+    border-bottom-left-radius: 0 !important;
+}
+
+#input-group-age button {
+    border-bottom-left-radius: 0 !important;
+    border-top-left-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+}
+
+#input-group-gender button {
+    border-bottom-left-radius: 0 !important;
+    border-top-left-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+    border-top-right-radius: 0 !important;
+    border-bottom: 0;
+    border-top: 0;
+}
+
+#detailfilter-gender-label {
+    border-bottom-left-radius: 0 !important;
+    border-top-left-radius: 0 !important;
+    border-bottom: 0;
+    border-top: 0;
+}
+
+#detailfilter-group-label {
+    border-top-left-radius: 0 !important;
+}
+
+#input-group-group button {
+    border-top-right-radius: 0 !important;
+    border-bottom-left-radius: 0 !important;
+    border-top-left-radius: 0 !important;
+}
