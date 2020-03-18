@@ -2,33 +2,33 @@
 
     <div class="container bg-white rounded-top shadow-lg pb-1">
 
-        <div class="row row-eq-height text-center">
+        <div class="row">
 
-            <div class="col-8">
-
-                <div class="row row-eq-height align-items-center">
+            <div class="col-7 mb-auto border-right">
+                <h4>Filter Morphed Face</h4>  
+                <div class="row row-eq-height">
                     <div class="col-12">
-                        <div class="row">
-                            <div class="col-12 p-2">
-                                <div id="time_slider"></div>
-                            </div>
-                        </div>
+                        <div id="time_slider" class="w-100 h-100"></div>
                     </div>
+                     
                 </div>
                 <div class="row justify-content-start row-eq-height">
                     <div class="input-group col-12">
-                        <div class="input-group-prepend">
+                        <div class="input-group-prepend" data-toggle="tooltip" data-placement="top" title="Select different timespan here">
                             <label class="input-group-text" for="input-group-timeslider-time">Timespan</label>
                         </div>
-                        <select id="selectTimeButton" class="custom-select form-control form-control-sm"
-                            id="input-group-timeslider-time">
+                        <select id="selectTimeButton" 
+                            class="custom-select form-control form-control-sm"
+                            id="input-group-timeslider-time"
+                            style="max-width:25%">
                         </select>
 
-                        <div class="input-group-prepend">
+                        <div class="input-group-prepend" data-toggle="tooltip" data-placement="top" title="Select a different filter like age, colour or gender">
                             <label class="input-group-text" for="input-group-timeslider-dimension">Dimension</label>
                         </div>
                         <select class="custom-select form-control form-control-sm"
-                            id="input-group-timeslider-dimension">
+                            id="input-group-timeslider-dimension"
+                            style="max-width:25%">
                             <option value="none" selected>None</option>
                             <option value="age">Age</option>
                             <option value="gender">Gender</option>
@@ -79,27 +79,43 @@
                     </div>
                 </div>
             </div>
-            <div class="col-4 mt-auto">
-                <div class="row">
+            <div class="col-5 mb-auto">
+                <h4>Filter Overall Dataset</h4> 
+                <div class="row prepend-custom">
                     <div class="col-12">
-                        <select id="detailfilter-control-age" class="mb-2" name="options[]" class="selectpicker"
-                            multiple data-live-search="true" data-selected-text-format="count > 3"
+                        <div id="explanatory_text" class="w-100 h-100 p"></div>
+                    </div>
+                    <div class="input-group col-12">
+                        <div class="input-group-prepend" data-toggle="tooltip" data-placement="top" title="Filter the whole dataset by age">
+                            <label class="input-group-text" for="input-group-timeslider-time">Age</label>
+                        </div>
+                        <select id="detailfilter-control-age" class="" name="options[]" class="selectpicker" data-style="custom-select-custom"
+                            data-count-selected-text= "{0} ages selected"
+                            multiple data-selected-text-format="count > 3"
                             data-actions-box="true">
                         </select>
                     </div>
-                    <div class="col-12">
-                        <select id="detailfilter-control-gender" class="mb-2" name="options[]" class="selectpicker"
-                            multiple data-live-search="true" data-selected-text-format="count > 3"
+                    <div class="input-group col-12">
+                        <div class="input-group-prepend" data-toggle="tooltip" data-placement="top" title="Filter by gender">
+                            <label class="input-group-text" for="input-group-timeslider-time">Gender</label>
+                        </div>
+                        <select id="detailfilter-control-gender" class="" name="options[]" class="selectpicker" data-style="custom-select-custom"                         
+                            multiple
                             data-actions-box="true">
                         </select>
                     </div>
-                    <div class="col-12">
-                        <div class="d-inline">
-                            <select id="detailfilter-control-group" class="ml-auto" name="options[]"
-                                class="selectpicker" multiple data-live-search="true"
+                    <div class="input-group col-12">
+                        <!-- <div class="d-inline"> -->
+                            <div class="input-group-prepend" data-toggle="tooltip" data-placement="top" title="Filter by color group">
+                                <label class="input-group-text" for="input-group-timeslider-time">Color Group</label>
+                            </div>
+                            <select id="detailfilter-control-group" class="" name="options[]"
+                                class="selectpicker" data-style="custom-select-custom"
+                                data-count-selected-text= "{0} colors selected"
+                                multiple
                                 data-selected-text-format="count > 3" data-actions-box="true">
                             </select>
-                        </div>
+                        <!-- </div> -->
                     </div>
                 </div>
             </div>

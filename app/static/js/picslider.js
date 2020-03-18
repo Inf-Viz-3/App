@@ -67,17 +67,41 @@ function update_pic_slider(data){
 }
 
 function init_pic_slider(data){
+  if (filterJSParams['selected_time'] == "ALL"){
+    var para = document.createElement("p")
+    var bold = document.createElement("strong")
+    var br = document.createElement("br")
+    var bold_2 = document.createElement("strong")
+    var text_1 = document.createTextNode("View a different face from a different time by selecting the ")
+    var text_2 = document.createTextNode("Timespan ")
+    var text_3 = document.createTextNode("control or by selecting the ")
+    var text_4 = document.createTextNode("Dimension ")
+    var text_5 = document.createTextNode("control which filters on age, gender or color group.")
+    var text_6 = document.createTextNode("Have fun!")
+    para.appendChild(text_1)
+    bold.appendChild(text_2)
+    para.appendChild(bold)
+    para.appendChild(text_3)
+    bold_2.appendChild(text_4)
+    para.appendChild(bold_2)
+    para.appendChild(text_5)
+    para.appendChild(br)
+    para.appendChild(text_6)
+
+    
+    var time_slider = document.getElementById("time_slider")
+    time_slider.appendChild(para)
+    return;
+  }
   const svg = d3.select("#time_slider")
         .append("svg")
-        .attr("class", "w-100 h-100")
+        // .attr("class", "w-100 h-100")
         .attr("viewBox", "0 0 750 150")
         .attr("version", 1.1)
         .attr("xmlns", "http://www.w3.org/2000/svg")
-  
-  if (filterJSParams['selected_time'] == "ALL"){
-    return;
-  }
 
+
+  
   data.map(function(d){return map_data(d, filterJSParams['selected_time'])});
   var xBand = d3
       .scaleBand()

@@ -2,7 +2,47 @@ var filterJSParams = {};
 // init
 const age_groups = ["(0-2)", "(4-6)", "(8-12)", "(15-20)", "(25-32)", "(38-43)", "(48-53)", "(60-100)"];
 const gender_groups = ["Female", "Male"];
-const color_groups = [0, 1, 2, 3, 4, 5, 6, 7, 8];
+
+const color_objects = [  
+    {
+        id: 0,
+        color: "rgb(200, 155, 113)"
+    },
+    {
+        id: 1,
+        color: "rgb(159, 102, 58)"
+    },
+    {
+        id: 2,
+        color: "rgb(96, 62, 42)"
+    },
+    {
+        id: 3,
+        color: "rgb(165, 134, 111)"
+    },
+    {
+        id: 4,
+        color: "rgb(126, 88, 61)"
+    },
+    {
+        id: 5,
+        color: "rgb(177, 158, 144)"
+    },
+    {
+        id: 6,
+        color: "rgb(144, 113, 89)"
+    },
+    {
+        id: 7,
+        color: "rgb(207, 187, 168)"
+    },
+    {
+        id: 8,
+        color: "rgb(182, 127, 80)"
+    },
+]
+
+const color_groups = color_objects.map(x=>x.id)
 
 filterJSParams['beginDate'] = 0;
 filterJSParams['endDate'] = 2020;
@@ -164,10 +204,13 @@ function buildGenderOptionList() {
 
 function buildColorGroupOptionList() {
     const groupSelect = document.getElementById('detailfilter-control-group');
-    for (let i = 0; i < color_groups.length; i++) {
+    for (let i = 0; i < color_objects.length; i++) {
         var opt = document.createElement("option");
-        opt.value = color_groups[i];
-        opt.text = "Group " +(Number(color_groups[i]) + 1);
+        var col = color_objects[i];
+        opt.value = col.id;
+        opt.text = "Group " +(Number(col.id) + 1);
+        opt.style["background-color"] = col.color
+
         groupSelect.appendChild(opt);
     }
 
@@ -193,6 +236,34 @@ function buildDimensionAgeOptionList() {
 
         groupSelect.appendChild(opt);
     }
+}
+
+function writeFilterText(){
+    var para = document.createElement("p")
+    var bold = document.createElement("strong")
+    var bold_2 = document.createElement("strong")
+    var bold_3 = document.createElement("strong")
+    var text_1 = document.createTextNode("Filter all the data above by ")
+    var text_2 = document.createTextNode("Age ")
+    var text_3 = document.createTextNode(", ")
+    var text_4 = document.createTextNode("Gender ")
+    var text_5 = document.createTextNode("and ")
+    var text_6 = document.createTextNode("Color group")
+    var text_7 = document.createTextNode(".")
+    para.appendChild(text_1)
+    bold.appendChild(text_2)
+    para.appendChild(bold)
+    para.appendChild(text_3)
+    bold_2.appendChild(text_4)
+    para.appendChild(bold_2)
+    para.appendChild(text_5)
+    bold_3.appendChild(text_6)
+    para.appendChild(bold_3)
+    para.appendChild(text_7)
+    para.setAttribute("style", "margin-bottom:0;")
+    
+    var expl_text = document.getElementById("explanatory_text")
+    expl_text.appendChild(para)
 }
 
 let toggleFunction = function () {
@@ -231,6 +302,7 @@ filterJSAddWindowLoadHook(toggleFunction);
 filterJSAddWindowLoadHook(buildAgeOptionList);
 filterJSAddWindowLoadHook(buildDimensionAgeOptionList);
 filterJSAddWindowLoadHook(buildColorGroupOptionList);
+filterJSAddWindowLoadHook(writeFilterText);
 filterJSAddWindowLoadHook(buildGenderOptionList);
 filterJSAddWindowLoadHook(registerListener);
 filterJSAddWindowLoadHook(displayDimensionFilter);
