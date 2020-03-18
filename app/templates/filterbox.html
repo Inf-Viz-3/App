@@ -5,7 +5,7 @@
         <div class="row">
 
             <div class="col-7 mb-auto border-right">
-                <h4>Filter Morphed Face</h4>  
+                <h5 class="pt-1">Filter Morphed Face</h5>  
                 <div class="row row-eq-height">
                     <div class="col-12">
                         <div id="time_slider" class="w-100 h-100"></div>
@@ -80,14 +80,14 @@
                 </div>
             </div>
             <div class="col-5 mb-auto">
-                <h4>Filter Overall Dataset</h4> 
+                <h5 class="pt-1">Filter Overall Dataset</h5> 
                 <div class="row prepend-custom">
                     <div class="col-12">
                         <div id="explanatory_text" class="w-100 h-100 p"></div>
                     </div>
-                    <div class="input-group col-12">
+                    <div class="input-group col-12"  id="input-group-age">
                         <div class="input-group-prepend" data-toggle="tooltip" data-placement="top" title="Filter the whole dataset by age">
-                            <label class="input-group-text" for="input-group-timeslider-time">Age</label>
+                            <label id="detailfilter-age-label" class="input-group-text" for="input-group-timeslider-time">Age</label>
                         </div>
                         <select id="detailfilter-control-age" class="" name="options[]" class="selectpicker" data-style="custom-select-custom"
                             data-count-selected-text= "{0} ages selected"
@@ -95,19 +95,19 @@
                             data-actions-box="true">
                         </select>
                     </div>
-                    <div class="input-group col-12">
+                    <div class="input-group col-12" id="input-group-gender">
                         <div class="input-group-prepend" data-toggle="tooltip" data-placement="top" title="Filter by gender">
-                            <label class="input-group-text" for="input-group-timeslider-time">Gender</label>
+                            <label id="detailfilter-gender-label" class="input-group-text" for="input-group-timeslider-time">Gender</label>
                         </div>
                         <select id="detailfilter-control-gender" class="" name="options[]" class="selectpicker" data-style="custom-select-custom"                         
                             multiple
                             data-actions-box="true">
                         </select>
                     </div>
-                    <div class="input-group col-12">
+                    <div class="input-group col-12" id="input-group-group">
                         <!-- <div class="d-inline"> -->
                             <div class="input-group-prepend" data-toggle="tooltip" data-placement="top" title="Filter by color group">
-                                <label class="input-group-text" for="input-group-timeslider-time">Color Group</label>
+                                <label id="detailfilter-group-label" class="input-group-text" for="input-group-timeslider-time">Color Group</label>
                             </div>
                             <select id="detailfilter-control-group" class="" name="options[]"
                                 class="selectpicker" data-style="custom-select-custom"
