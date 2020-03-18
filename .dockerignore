@@ -1,3 +1,6 @@
 Dockerfile
 .dockerignore
 app/static/img
+data
+docs
+venv
