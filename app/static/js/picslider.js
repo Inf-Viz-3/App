@@ -162,10 +162,11 @@ function init_pic_slider(data){
       .attr('height', d => y(0) - y(d.count))
       .attr('width', xBand.bandwidth());
 
-  var draw = selected => {
+  var draw = selectedV => {
+    selected = selectedV;
     barsEnter
     .merge(bars)
-    .attr('fill', d => (d.time === selected ? '#bad80a' : '#e0e0e0'))     
+    .attr('fill', d => (d.time === selectedV ? '#bad80a' : '#e0e0e0'))     
     .attr("data-toggle", "tooltip")
     .attr("data-html","true")
     .attr("data-placement", "top" )
@@ -174,7 +175,7 @@ function init_pic_slider(data){
         return `${Math.trunc(Math.exp(x.count)) -1 } Faces`
     })
     $('[data-toggle="tooltip"]').tooltip('hide')
-    $('#rect-'+selected).tooltip('show')
+    $('#rect-'+selectedV).tooltip('show')
   };
 
   // Create Tooltips
