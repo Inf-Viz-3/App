@@ -16,6 +16,7 @@ faces_meta = pd.merge(faces, metadata_df, how='left', left_on='imgid', right_ind
 faces_meta["decade"] = (faces_meta.creation_year.floordiv(10) + 10)
 faces_meta["century"] = (faces_meta.creation_year.floordiv(100) + 1)
 faces_meta = faces_meta[faces_meta.groupby("creation_year")['creation_year'].transform('size') > 1]
+faces_meta = faces_meta[~faces_meta.century.isin([8,13])]
 # fetch all json
 facessim = {}
 

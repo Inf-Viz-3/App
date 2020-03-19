@@ -79,6 +79,7 @@ function update_pic_slider(data){
 
   init_pic_slider(data)
 }
+var slider;
 var selected;
 function init_pic_slider(data){
   if (filterJSParams['selected_time'] == "ALL"){
@@ -181,7 +182,7 @@ function init_pic_slider(data){
       $('[data-toggle="tooltip"]').tooltip()
   })
 
-  var slider;
+  
   let begin = previousBegin;
   let end = previousEnd;
   
