@@ -90,7 +90,7 @@ function fetch_data() {
     }).then(buildFacesBar);
 }
 
-function get_image_url(){
+function get_image_url(mask){
     let base_url = "/static/img"
     let time = filterJSParams['beginDate'];
     let dimension = filterJSParams["dimension"];
@@ -133,7 +133,7 @@ function get_image_url(){
             imgname = imgfolder;
         }
     }
-
+    if(mask) return `${base_url}/${imgfolder}/${imgname}_mask.png`
     return `${base_url}/${imgfolder}/${imgname}.jpg`
 }
 
@@ -158,19 +158,56 @@ function set_portrait(){
     let warpBoxFront = d3.select(`#usebox-svg-warped-face-1`);
     let warpImageBack = d3.select(`#warped-face-2`)
     let warpImageFront = d3.select(`#warped-face-1`)
-    let url = get_image_url();
-
+    let url = get_image_url(false);
     preloadFaceImg(url, warpImageFront, warpImageBack, warpBoxFront);
-        
+}
+
+function set_portrait_mask(){
+    let warpBoxBack = d3.select(`#usebox-svg-masked-face-2`);
+    let warpBoxFront = d3.select(`#usebox-svg-masked-face-1`);
+    let warpImageBack = d3.select(`#masked-face-2`)
+    let warpImageFront = d3.select(`#masked-face-1`)
+    let url = get_image_url(true);
+    preloadFaceImg(url, warpImageFront, warpImageBack, warpBoxFront);
+}
+
+function toggle(){
+    document.getElementById("toggle").addEventListener("click", function(){
+        var masked_1 = document.getElementById("svg-masked-face-1")
+        var masked_2 = document.getElementById("svg-masked-face-2")
+        var masked_3 = document.getElementById("svg-masked-face-3")
+        var warped_1 = document.getElementById("svg-warped-face-1")
+        var warped_2 = document.getElementById("svg-warped-face-2")
+        var warped_3 = document.getElementById("svg-warped-face-3")
+        if(masked_1.style.display == 'block'){
+            masked_1.style.display = 'none'
+            masked_2.style.display = 'none'
+            masked_3.style.display = 'none'
+            warped_1.style.display = 'block'
+            warped_1.style.display = 'block'
+            warped_1.style.display = 'block'
+        } else{
+            masked_1.style.display = 'block'
+            masked_2.style.display = 'block'
+            masked_3.style.display = 'block'
+            warped_1.style.display = 'none'
+            warped_2.style.display = 'none'
+            warped_3.style.display = 'none'
+        }
+    });
 }
 
 var updateView = function(params, type) {
     fetch_data()
     set_portrait()
+    set_portrait_mask()
 }
 
 
 filterJSInitParamsChangedHook(updateView);
+
 filterJSInitScrollHook(() => {
     toggleFunction(undefined)
   });
+
+filterJSAddWindowLoadHook(toggle)
