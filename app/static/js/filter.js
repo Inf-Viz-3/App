@@ -152,6 +152,10 @@ function registerListener() {
         displayDimensionFilter(ev.target.value);
     }
 
+    document.getElementById("selectTimeButton").onchange = function(ev) {
+        filterJSUpdate("selected_time", ev.target.value)
+    }
+
     document.getElementById("detailfilter-control-gender").onchange = function(ev) {
         var elements = document.getElementById('detailfilter-control-gender').selectedOptions;
         let selection = Array.prototype.slice.call(elements).map((element) => {
