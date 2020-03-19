@@ -4,12 +4,14 @@ const ymargin = 5;
 const subsvgheight = 90;
 const subsvgwidth = 90;
 var face_index = 0;
+var modal;
+var faces = [];
 
 function createFaceDOM(face, index, svg) {
     
     let faceurl = `../static/img/faces/${face.imgid}_${face.faceid}.jpg` 
-    let purl = `../static/img/portraits/${face.imgid}.jpg` 
     let facesvg = svg.append("svg")
+        .attr("id", index)
         .attr("x", xmargin + (xwide * index))
         .attr("y", ymargin)
         .attr("width", subsvgwidth)
@@ -17,21 +19,24 @@ function createFaceDOM(face, index, svg) {
         .attr("viewbox", "0 0 100 100")
         .classed("rounded-circle", true)
         .classed("shadow", true)
+        .attr("onclick", "handleImgClick(evt)")
 
     let tooltiphtml = `<div class="container">
-                       <img class='w-100' src='${purl}'>
+                       <img class='w-100' src='${faceurl}'>
                        <span>Distance</span>
                        <span>${face.deviation}</span>
                        </div>`
 
-    let link = facesvg.append("a")
-        .attr("href", faceurl)
-    let faceobj = link.append("image")
+    // let link = facesvg.append("a")
+    //     .attr("href", faceurl)
+    let faceobj = facesvg.append("image")
+        .attr("class", "face-img")
         .attr("href", faceurl)
         .attr("y", 0)
         .attr("x", 0)
         .attr("width", 100)
         .attr("height", 100)
+        .attr("alt", `Distance ${face.deviation}`)
         .attr("data-toggle", "tooltip")
         .attr("data-html", "true")
         .attr("title", tooltiphtml)
@@ -40,12 +45,36 @@ function createFaceDOM(face, index, svg) {
         $(faceobj.node()).tooltip()
     })
 }
+function handleImgClick(evt){
+    // Get the modal
+    var bottomNav = document.getElementById('filter-nav-bar');
+    bottomNav.style.display = "none";
 
+    modal = document.getElementById("myModal");
+
+    var face = faces[evt.currentTarget.id]
+    let purl = `../static/img/portraits/${face.imgid}.jpg` 
+    var modalImg = document.getElementById("img01");
+    var captionText = document.getElementById("caption");
+    modal.style.display = "block";
+    modalImg.src = purl;
+    captionText.innerHTML = `Distance ${face.deviation}`
+    
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function() {
+        bottomNav.style.display = "block";
+        modal.style.display = "none";
+    }
+}
 function buildFacesBar(data) {
     let svg = d3.select("#faces-simbar")
     svg.selectAll("svg").remove()
     data.forEach( (element, index) => {
         createFaceDOM(element, index, svg);
+        faces.push(element)
     });
 }
 
@@ -139,4 +168,8 @@ var updateView = function(params, type) {
     set_portrait()
 }
 
+
 filterJSInitParamsChangedHook(updateView);
+filterJSInitScrollHook(() => {
+    toggleFunction(undefined)
+  });

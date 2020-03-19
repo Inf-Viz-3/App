@@ -79,9 +79,8 @@ function update_pic_slider(data){
 
   init_pic_slider(data)
 }
-
+var selected;
 function init_pic_slider(data){
-  console.log(data)
   if (filterJSParams['selected_time'] == "ALL"){
     var para = document.createElement("p")
     var bold = document.createElement("strong")
@@ -170,7 +169,7 @@ function init_pic_slider(data){
     .attr("data-html","true")
     .attr("data-placement", "top" )
     .attr("title", (x, d, z) => {       
-        return `${Math.trunc(Math.exp(x.count))} Faces`
+        return `${Math.trunc(Math.exp(x.count)) -1 } Faces`
     })
     $('[data-toggle="tooltip"]').tooltip('hide')
     $('#rect-'+selected).tooltip('show')
@@ -184,7 +183,7 @@ function init_pic_slider(data){
   var slider;
   let begin = previousBegin;
   let end = previousEnd;
-  let selected;
+  
   // Time dependent
   if(filterJSParams['selected_time'] == "YEAR"){
       if (previousBegin) {
@@ -261,18 +260,20 @@ function init_pic_slider(data){
   
   // svg.append('g').call(yAxis);
   svg.append('g').call(slider);
-  var text = svg.append("text")
+  svg.append("text")
         .attr("transform", "translate(45,0) rotate(-90)")
         .attr("y", 0 - margin.left)
         .attr("x", 0 - (height / 2))
         .attr("dy", "1em")
         .style("font-size", "smaller")
         .style("text-anchor", "middle")
+        .attr("data-toggle", "tooltip")
+        .attr("data-html","true")
+        .attr("data-placement", "top" )
+        .attr("title", (x, d, z) => {       
+            return "Height bar indicates amount of faces for the selected timespan"
+        })
         .text("Amount faces");
-
-  text.append("title")
-    .text("Height bar indicates amount of faces for the selected timespan")
-  // svg.append("g").attr('transform', 'translate(15,0)').call(d3.axisLeft(y));
 }
 
 function dragged_debounce(d) {
@@ -353,4 +354,9 @@ filterJSInitParamsChangedHook((param, update_type) => {
   if (["beginDate", "endDate", "age", "gender", "color"].indexOf(update_type) == -1) {
     readAndDrawData();
   }
+});
+
+filterJSInitScrollHook(() => {
+  toggleFunction(selected)
+  
 });

@@ -265,22 +265,27 @@ function writeFilterText(){
     var expl_text = document.getElementById("explanatory_text")
     expl_text.appendChild(para)
 }
-
-let toggleFunction = function () {
+let toggleTooltipRectSlider = function(x, toggle){
+    if(toggle) $('#rect-'+x).tooltip('show')
+    else $('[data-toggle="tooltip"]').tooltip('hide')
+}
+let toggleFunction = function (x) {
 
     var bottomNav = document.getElementById('filter-nav-bar');
     if (!bottomNav) return;
 
-    if (window.scrollY > (window.innerHeight * 0.9)) {
+    if (window.scrollY > (window.innerHeight * 0.7)) {
         // you're at the bottom of the page
         if (bottomNav.classList.contains('crossfade')) {
             bottomNav.classList.remove('crossfade');
             // alert("remove faq display!");
         }
+        toggleTooltipRectSlider(x,true)
     } else {
         if (!bottomNav.classList.contains('crossfade')) {
             bottomNav.classList.add('crossfade');
         }
+        toggleTooltipRectSlider(x,false)
     }
 };
 
