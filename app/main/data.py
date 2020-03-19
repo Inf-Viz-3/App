@@ -63,9 +63,9 @@ def get_portraits_by_year_by_params(filterObj: models.FilterObj):
 
 def female_male_filter(df, filterObj):
     if filterObj.female is True and filterObj.male is not True:
-        df = df.query('gender == "Female"')
+        df = df.query('gender == "female"')
     if filterObj.male is True and filterObj.female is not True:
-        df = df.query('gender == "Male"')
+        df = df.query('gender == "male"')
     return df
 
 def get_faces_by_params(filterObj):
@@ -126,7 +126,7 @@ def get_portrait_count_by_params(filterObj):
         return decadedf[['decade','count']]
 
     if filterObj.selected_time == "CENTURY":
-        res = sourcedf[sourcedf.groupby("decade")['decade'].transform('size') > 1]
+        res = sourcedf[sourcedf.groupby("century")['century'].transform('size') > 1]
         res = res.groupby(['century']).creation_year.agg('count').to_frame(
             'count').reset_index()
         res["count"] = np.log(res["count"])

@@ -23,7 +23,7 @@ readAndDrawData = function (){
     fetchParams['beginDate'] = 0;
     fetchParams['endDate'] = 2020;
     fetchParams['age'] = age_groups;
-    fetchParams['gender'] = ["Male", "Female"];
+    fetchParams['gender'] = ["male", "female"];
     fetchParams['color'] = color_groups;
     
     url.search = new URLSearchParams(fetchParams).toString();
