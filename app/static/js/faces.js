@@ -70,6 +70,7 @@ function handleImgClick(evt){
     }
 }
 function buildFacesBar(data) {
+    faces = [];
     let svg = d3.select("#faces-simbar")
     svg.selectAll("svg").remove()
     data.forEach( (element, index) => {
