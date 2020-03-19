@@ -15,7 +15,12 @@
             <div class="col-12 col-sm-6" id="analyzer-left">
                 <div id="bubble"></div>
             </div>
-            <div class="col-12 col-sm-6 pt-4 text-center" id="analyzer-right">
+            <div class="col-12 col-sm-6 text-center" id="analyzer-right">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="btn float-right" id="toggle">View Facial Landmarks</div>
+                    </div>
+                </div>
                 <div class="row">
                     <div class="col-12 col-sm-9">
                         <div class="svg-warped-face-container">
@@ -32,6 +37,18 @@
                                 </svg>
                                 <use id="usebox-svg-warped-face-2" xlink:href="#svg-warped-face-2" />
                                 <use id="usebox-svg-warped-face-1" xlink:href="#svg-warped-face-1" />
+
+                                <svg id="svg-masked-face-1" preserveAspectRatio="xMidYMid meet" viewBox="0 0 1200 1200">
+                                    <image id="masked-face-1" class="w-100" href="../static/img/no_points.png" />
+                                </svg>
+                                <svg id="svg-masked-face-2" preserveAspectRatio="xMidYMid meet" viewBox="0 0 1200 1200">
+                                    <image id="masked-face-2" class="w-100" href="../static/img/no_points.png" />
+                                </svg>
+                                <svg id="svg-masked-face-3" preserveAspectRatio="xMidYMid meet" viewBox="0 0 1200 1200">
+                                    <image id="masked-face-3" href="../static/img/no_points.png" width="100%" />
+                                </svg>
+                                <use id="usebox-svg-masked-face-2" xlink:href="#svg-masked-face-2" />
+                                <use id="usebox-svg-masked-face-1" xlink:href="#svg-masked-face-1" />
                             </svg>
                         </div>
                     </div>
