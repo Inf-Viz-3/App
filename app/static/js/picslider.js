@@ -168,6 +168,7 @@ function init_pic_slider(data){
     .attr("data-toggle", "tooltip")
     .attr("data-html","true")
     .attr("data-placement", "top" )
+    .attr("data-delay",'{"show":"1", "hide":"0"}')
     .attr("title", (x, d, z) => {       
         return `${Math.trunc(Math.exp(x.count)) -1 } Faces`
     })
@@ -348,7 +349,23 @@ function debounceD3Event(func, wait, immediate) {
     };
   }
 
-  readAndDrawData();
+readAndDrawData();
+
+var timer = null;
+
+function done() {
+  $('#rect-'+selected).tooltip('show')
+}
+
+window.addEventListener('scroll', function() {
+  $('[data-toggle="tooltip"]').tooltip('hide')
+    if (timer !== null) {
+        clearTimeout(timer);        
+    }
+
+    
+    timer = setTimeout(done, 450);
+}, false);
 
 filterJSInitParamsChangedHook((param, update_type) => {
   if (["beginDate", "endDate", "age", "gender", "color"].indexOf(update_type) == -1) {
@@ -357,6 +374,5 @@ filterJSInitParamsChangedHook((param, update_type) => {
 });
 
 filterJSInitScrollHook(() => {
-  toggleFunction(selected)
-  
+  // toggleFunction(selected);
 });
