@@ -152,8 +152,8 @@ function registerListener() {
         displayDimensionFilter(ev.target.value);
     }
 
-    document.getElementById("selectTimeButton").onchange = function(ev) {
-        filterJSUpdate("selected_time", ev.target.value)
+    document.getElementById("detailfilter-control-gender").onchange = function(ev) {
+        filterJSUpdate("gender", ev.target.value)
     }
 
     document.getElementById('detailfilter-control-age').onchange = function () {

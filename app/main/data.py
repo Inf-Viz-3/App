@@ -78,9 +78,8 @@ def get_faces_by_params(filterObj):
         imgname = f"{filterObj.dimension_value}-{filterObj.beginDate}"
         if filterObj.selected_time == "ALL":
             imgname = filterObj.dimension_value
-        # quickfix:
         if filterObj.dimension == "gender":
-            imgname = imgname.title()
+            imgname = imgname
     else:
         if filterObj.selected_time == "ALL":
             imgname = "all"
