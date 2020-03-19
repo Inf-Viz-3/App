@@ -153,7 +153,12 @@ function registerListener() {
     }
 
     document.getElementById("detailfilter-control-gender").onchange = function(ev) {
-        filterJSUpdate("gender", ev.target.value)
+        var elements = document.getElementById('detailfilter-control-gender').selectedOptions;
+        let selection = Array.prototype.slice.call(elements).map((element) => {
+            return element.value
+        });
+        
+        filterJSUpdate("gender", selection)
     }
 
     document.getElementById('detailfilter-control-age').onchange = function () {
