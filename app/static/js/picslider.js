@@ -374,5 +374,5 @@ filterJSInitParamsChangedHook((param, update_type) => {
 });
 
 filterJSInitScrollHook(() => {
-  // toggleFunction(selected);
+  toggleFunction(selected);
 });
