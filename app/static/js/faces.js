@@ -4,12 +4,14 @@ const ymargin = 5;
 const subsvgheight = 90;
 const subsvgwidth = 90;
 var face_index = 0;
+var modal;
+var faces = [];
 
 function createFaceDOM(face, index, svg) {
     
     let faceurl = `../static/img/faces/${face.imgid}_${face.faceid}.jpg` 
-    let purl = `../static/img/portraits/${face.imgid}.jpg` 
     let facesvg = svg.append("svg")
+        .attr("id", index)
         .attr("x", xmargin + (xwide * index))
         .attr("y", ymargin)
         .attr("width", subsvgwidth)
@@ -17,21 +19,24 @@ function createFaceDOM(face, index, svg) {
         .attr("viewbox", "0 0 100 100")
         .classed("rounded-circle", true)
         .classed("shadow", true)
+        .attr("onclick", "handleImgClick(evt)")
 
     let tooltiphtml = `<div class="container">
-                       <img class='w-100' src='${purl}'>
+                       <img class='w-100' src='${faceurl}'>
                        <span>Distance</span>
                        <span>${face.deviation}</span>
                        </div>`
 
-    let link = facesvg.append("a")
-        .attr("href", faceurl)
-    let faceobj = link.append("image")
+    // let link = facesvg.append("a")
+    //     .attr("href", faceurl)
+    let faceobj = facesvg.append("image")
+        .attr("class", "face-img")
         .attr("href", faceurl)
         .attr("y", 0)
         .attr("x", 0)
         .attr("width", 100)
         .attr("height", 100)
+        .attr("alt", `Distance ${face.deviation}`)
         .attr("data-toggle", "tooltip")
         .attr("data-html", "true")
         .attr("title", tooltiphtml)
@@ -40,12 +45,37 @@ function createFaceDOM(face, index, svg) {
         $(faceobj.node()).tooltip()
     })
 }
+function handleImgClick(evt){
+    // Get the modal
+    var bottomNav = document.getElementById('filter-nav-bar');
+    bottomNav.style.display = "none";
 
+    modal = document.getElementById("myModal");
+
+    var face = faces[evt.currentTarget.id]
+    let purl = `../static/img/portraits/${face.imgid}.jpg` 
+    var modalImg = document.getElementById("img01");
+    var captionText = document.getElementById("caption");
+    modal.style.display = "block";
+    modalImg.src = purl;
+    captionText.innerHTML = `Distance ${face.deviation}`
+    
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function() {
+        bottomNav.style.display = "block";
+        modal.style.display = "none";
+    }
+}
 function buildFacesBar(data) {
+    faces = [];
     let svg = d3.select("#faces-simbar")
     svg.selectAll("svg").remove()
     data.forEach( (element, index) => {
         createFaceDOM(element, index, svg);
+        faces.push(element)
     });
 }
 
@@ -60,7 +90,7 @@ function fetch_data() {
     }).then(buildFacesBar);
 }
 
-function get_image_url(){
+function get_image_url(mask){
     let base_url = "/static/img"
     let time = filterJSParams['beginDate'];
     let dimension = filterJSParams["dimension"];
@@ -103,7 +133,7 @@ function get_image_url(){
             imgname = imgfolder;
         }
     }
-
+    if(mask) return `${base_url}/${imgfolder}/${imgname}_mask.png`
     return `${base_url}/${imgfolder}/${imgname}.jpg`
 }
 
@@ -128,15 +158,58 @@ function set_portrait(){
     let warpBoxFront = d3.select(`#usebox-svg-warped-face-1`);
     let warpImageBack = d3.select(`#warped-face-2`)
     let warpImageFront = d3.select(`#warped-face-1`)
-    let url = get_image_url();
-
+    let url = get_image_url(false);
     preloadFaceImg(url, warpImageFront, warpImageBack, warpBoxFront);
-        
+}
+
+function set_portrait_mask(){
+    let warpBoxBack = d3.select(`#usebox-svg-masked-face-2`);
+    let warpBoxFront = d3.select(`#usebox-svg-masked-face-1`);
+    let warpImageBack = d3.select(`#masked-face-2`)
+    let warpImageFront = d3.select(`#masked-face-1`)
+    let url = get_image_url(true);
+    preloadFaceImg(url, warpImageFront, warpImageBack, warpBoxFront);
+}
+
+function toggle(){
+    document.getElementById("toggle").addEventListener("click", function(){
+        var masked_1 = document.getElementById("svg-masked-face-1")
+        var masked_2 = document.getElementById("svg-masked-face-2")
+        var masked_3 = document.getElementById("svg-masked-face-3")
+        var warped_1 = document.getElementById("svg-warped-face-1")
+        var warped_2 = document.getElementById("svg-warped-face-2")
+        var warped_3 = document.getElementById("svg-warped-face-3")
+        if(masked_1.style.display == 'block'){
+            masked_1.style.display = 'none'
+            masked_2.style.display = 'none'
+            masked_3.style.display = 'none'
+            warped_1.style.display = 'block'
+            warped_1.style.display = 'block'
+            warped_1.style.display = 'block'
+            document.getElementById("toggle").innerHTML = "View Facial Landmarks";
+        } else{
+            masked_1.style.display = 'block'
+            masked_2.style.display = 'block'
+            masked_3.style.display = 'block'
+            warped_1.style.display = 'none'
+            warped_2.style.display = 'none'
+            warped_3.style.display = 'none'
+            document.getElementById("toggle").innerHTML = "View Average Face";
+        }
+    });
 }
 
 var updateView = function(params, type) {
     fetch_data()
     set_portrait()
+    set_portrait_mask()
 }
 
+
 filterJSInitParamsChangedHook(updateView);
+
+filterJSInitScrollHook(() => {
+    toggleFunction(undefined)
+  });
+
+filterJSAddWindowLoadHook(toggle)
