@@ -186,6 +186,7 @@ function toggle(){
             warped_1.style.display = 'block'
             warped_1.style.display = 'block'
             warped_1.style.display = 'block'
+            document.getElementById("toggle").innerHTML = "View Facial Landmarks";
         } else{
             masked_1.style.display = 'block'
             masked_2.style.display = 'block'
@@ -193,6 +194,7 @@ function toggle(){
             warped_1.style.display = 'none'
             warped_2.style.display = 'none'
             warped_3.style.display = 'none'
+            document.getElementById("toggle").innerHTML = "View Average Face";
         }
     });
 }
