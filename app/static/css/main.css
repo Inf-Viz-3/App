@@ -62,7 +62,14 @@ body {
 #analyzer .container {
     /* Margin for sticky navbar */
     padding-top: 76px;
-    min-height: 75vh;
+    min-height: 85vh;
+}
+
+#analyzer .two-column-text {
+    column-count: 2;
+    column-gap: 40px;
+    column-rule-style: solid;
+    column-rule-width: 1px;
 }
 
 .svg-warped-face-container {
