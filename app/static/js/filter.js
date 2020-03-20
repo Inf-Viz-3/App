@@ -6,39 +6,39 @@ const gender_groups = ["male", "female"];
 const color_objects = [  
     {
         id: 0,
-        color: "rgb(200, 155, 113)"
+        color: "rgb(229, 183, 126)"
     },
     {
         id: 1,
-        color: "rgb(159, 102, 58)"
+        color: "rgb(167, 130, 99)"
     },
     {
         id: 2,
-        color: "rgb(96, 62, 42)"
+        color: "rgb(120, 74, 43)"
     },
     {
         id: 3,
-        color: "rgb(165, 134, 111)"
+        color: "rgb(185, 157, 132)"
     },
     {
         id: 4,
-        color: "rgb(126, 88, 61)"
+        color: "rgb(130, 100, 76)"
     },
     {
         id: 5,
-        color: "rgb(177, 158, 144)"
+        color: "rgb(237, 210, 176)"
     },
     {
         id: 6,
-        color: "rgb(144, 113, 89)"
+        color: "rgb(180, 112, 60)"
     },
     {
         id: 7,
-        color: "rgb(207, 187, 168)"
+        color: "rgb(213, 151, 88)"
     },
     {
         id: 8,
-        color: "rgb(182, 127, 80)"
+        color: "rgb(211, 185, 162)"
     },
 ]
 
