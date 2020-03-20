@@ -65,6 +65,13 @@ body {
     min-height: 85vh;
 }
 
+#analyzer .two-column-text {
+    column-count: 2;
+    column-gap: 40px;
+    column-rule-style: solid;
+    column-rule-width: 1px;
+}
+
 .svg-warped-face-container {
     width: 100%;
     padding-top: 100%;
