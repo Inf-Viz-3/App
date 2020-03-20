@@ -46,12 +46,10 @@ def getFilterParams():
     else:
         gender = str.lower(gender)
     color = request.args.get("color")
-    female = "female" in gender
-    male = "male" in gender
     female = False
     male = False
-    
-    if dimension:
+
+    if dimension != "none":
         if (dimension == "age"):
             gender = request.args.get("gender").split(',')
             female = "female" in gender
@@ -69,6 +67,10 @@ def getFilterParams():
             male = "male" in gender
             color = dimension_value
             age = request.args.get("age")
+    else:
+        gender = request.args.get("gender").split(',')
+        female = "female" in gender
+        male = "male" in gender
     
     selected_time = request.args.get("selected_time")
 

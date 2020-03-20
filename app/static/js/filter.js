@@ -1,7 +1,7 @@
 var filterJSParams = {};
 // init
 const age_groups = ["(0-2)", "(4-6)", "(8-12)", "(15-20)", "(25-32)", "(38-43)", "(48-53)", "(60-100)"];
-const gender_groups = ["Female", "Male"];
+const gender_groups = ["male", "female"];
 
 const color_objects = [  
     {
@@ -47,7 +47,7 @@ const color_groups = color_objects.map(x=>x.id)
 filterJSParams['beginDate'] = 0;
 filterJSParams['endDate'] = 2020;
 filterJSParams['age'] = age_groups;
-filterJSParams['gender'] = ["Male", "Female"];
+filterJSParams['gender'] = ["male", "female"];
 filterJSParams['color'] = color_groups;
 filterJSParams['selected_time'] = "ALL"
 filterJSParams['dimension'] = "none";
@@ -154,6 +154,15 @@ function registerListener() {
 
     document.getElementById("selectTimeButton").onchange = function(ev) {
         filterJSUpdate("selected_time", ev.target.value)
+    }
+
+    document.getElementById("detailfilter-control-gender").onchange = function(ev) {
+        var elements = document.getElementById('detailfilter-control-gender').selectedOptions;
+        let selection = Array.prototype.slice.call(elements).map((element) => {
+            return element.value
+        });
+        
+        filterJSUpdate("gender", selection)
     }
 
     document.getElementById('detailfilter-control-age').onchange = function () {
