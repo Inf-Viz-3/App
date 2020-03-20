@@ -171,8 +171,11 @@ function init_pic_slider(data){
     .attr("data-html","true")
     .attr("data-placement", "top" )
     .attr("data-delay",'{"show":"1", "hide":"0"}')
-    .attr("title", (x, d, z) => {       
-        return `${Math.trunc(Math.exp(x.count)) -1 } Faces`
+    .attr("title", (x, d, z) => {   
+      var face_count = Math.ceil(Math.exp(x.count))
+      if(x.count === 0 ) return "No Faces"
+      if(face_count == 1) return "1 Face"    
+      return `${face_count } Faces`
     })
     $('[data-toggle="tooltip"]').tooltip('hide')
     $('#rect-'+selectedV).tooltip('show')
