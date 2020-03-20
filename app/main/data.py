@@ -107,8 +107,8 @@ def get_portrait_count_by_params(filterObj):
         yeardf = yeardf.reindex(np.arange(yeardf.creation_year.min(), yeardf.creation_year.max())+ 1).fillna(0)
         yeardf = yeardf.drop('creation_year', 1)
         yeardf.reset_index(level=0, inplace=True)
-        yeardf["count"] = np.log(yeardf["count"])
-        return yeardf[['creation_year', 'count']]
+        yeardf["logcount"] = np.log(yeardf["count"])
+        return yeardf[['creation_year','count', "logcount"]]
 
     if filterObj.selected_time == "DECADE":
         decadedf = sourcedf[sourcedf.groupby("decade")['decade'].transform('size') > 1]
@@ -122,15 +122,15 @@ def get_portrait_count_by_params(filterObj):
         decadedf = decadedf.drop('decade', 1)
         decadedf.reset_index(level=0, inplace=True)
         decadedf.loc[:,'decade'] *= 10
-        decadedf["count"] = np.log(decadedf["count"])
-        return decadedf[['decade','count']]
+        decadedf["logcount"] = np.log(decadedf["count"])
+        return decadedf[['decade','count', "logcount"]]
 
     if filterObj.selected_time == "CENTURY":
         res = sourcedf[sourcedf.groupby("century")['century'].transform('size') > 1]
         res = res.groupby(['century']).creation_year.agg('count').to_frame(
             'count').reset_index()
-        res["count"] = np.log(res["count"])
-        return res[['century', 'count']]
+        res["logcount"] = np.log(res["count"])
+        return res[['century','count', "logcount"]]
     
     if filterObj.selected_time == "ALL":
         return sourcedf.shape[0]

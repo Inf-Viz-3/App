@@ -39,18 +39,22 @@ function map_data(data, time_type) {
         case "YEAR":
             data.time = data.creation_year
             data.count = +data.count;
+            data.logcount = +data.logcount;
           break;
         case "DECADE":
             data.time = data.decade
             data.count = +data.count;
+            data.logcount = +data.logcount;
           break;
         case "CENTURY":
             data.time = data.century
             data.count = +data.count;
+            data.logcount = +data.logcount;
             break;
         case "ALL":
             data.time = data.period
             data.count = +data.count;
+            data.logcount = +data.logcount;
             break;
         default:
           break;
@@ -141,7 +145,7 @@ function init_pic_slider(data){
 
   var y = d3
       .scaleLinear()
-      .domain([0, d3.max(data, d => d.count)])
+      .domain([0, d3.max(data, d => d.logcount)])
       .nice()
       .range([height - margin.bottom, margin.top])
 
@@ -158,8 +162,8 @@ function init_pic_slider(data){
       .append('rect')
       .attr('id', d => 'rect-' + d.time)
       .attr('x', d => xBand(d.time))
-      .attr('y', d => y(d.count))
-      .attr('height', d => y(0) - y(d.count))
+      .attr('y', d => y(d.logcount))
+      .attr('height', d => y(0) - y(d.logcount))
       .attr('width', xBand.bandwidth());
 
   var draw = selectedV => {
@@ -167,23 +171,23 @@ function init_pic_slider(data){
     barsEnter
     .merge(bars)
     .attr('fill', d => (d.time === selectedV ? '#67a9cf' : '#e0e0e0'))     
-    .attr("data-toggle", "tooltip")
-    .attr("data-html","true")
-    .attr("data-placement", "top" )
-    .attr("data-delay",'{"show":"1", "hide":"0"}')
+      .attr("data-toggle", "slidertooltip")
+      .attr("data-html", "true")
+      .attr("data-placement", "top")
+      .attr("data-delay", '{"show":"1", "hide":"0"}')
     .attr("title", (x, d, z) => {   
-      var face_count = Math.ceil(Math.exp(x.count))
-      if(x.count === 0 ) return "No Faces"
-      if(face_count == 1) return "1 Face"    
-      return `${face_count } Faces`
+      var face_count = x.count;
+        if (x.count === 0) return "No Faces"
+        if (face_count == 1) return "1 Face"
+        return `${face_count} Faces`
     })
-    $('[data-toggle="tooltip"]').tooltip('hide')
-    $('#rect-'+selectedV).tooltip('show')
+    $('[data-toggle="slidertooltip"]').tooltip('hide')
+    $('#rect-' + selectedV).tooltip('show')
   };
 
   // Create Tooltips
   $(function () {
-      $('[data-toggle="tooltip"]').tooltip()
+    $('[data-toggle="slidertooltip"]').tooltip()
   })
 
   
@@ -359,17 +363,23 @@ readAndDrawData();
 var timer = null;
 
 function done() {
-  $('#rect-'+selected).tooltip('show')
+  if (window.scrollY < (window.innerHeight * 0.7)) return;
+  $('#rect-' + selected).tooltip('show')
 }
 
-window.addEventListener('scroll', function() {
-  $('[data-toggle="tooltip"]').tooltip('hide')
+window.addEventListener('scroll', function () {
+
+  // hide all tooltips on main splash
+  $('[data-toggle="slidertooltip"]').tooltip('hide');
+  // only show if below
+  if (window.scrollY > (window.innerHeight * 0.7)) {
     if (timer !== null) {
         clearTimeout(timer);        
     }
-
-    
     timer = setTimeout(done, 450);
+  } else {
+    
+  }
 }, false);
 
 filterJSInitParamsChangedHook((param, update_type) => {
