@@ -91,6 +91,8 @@ function fetch_data() {
 }
 
 function get_image_url(mask){
+
+    
     let base_url = "/static/img"
     let time = filterJSParams['beginDate'];
     let dimension = filterJSParams["dimension"];
@@ -133,6 +135,7 @@ function get_image_url(mask){
             imgname = imgfolder;
         }
     }
+    console.log("update img", `${base_url}/${imgfolder}/${imgname}.jpg`)
     if(mask) return `${base_url}/${imgfolder}/${imgname}_mask.png`
     return `${base_url}/${imgfolder}/${imgname}.jpg`
 }
