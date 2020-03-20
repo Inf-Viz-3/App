@@ -164,7 +164,7 @@ readAndDrawData = function (){
           .attr("height", y.bandwidth() )
           .style("fill", function(d) {
             if (d.group !== null){
-              return "rgb(" +colorHeatmap(d.group)[2] +"," +colorHeatmap(d.group)[1] +"," +colorHeatmap(d.group)[0] +")"
+              return "rgb(" +colorHeatmap(d.group)[0] +"," +colorHeatmap(d.group)[1] +"," +colorHeatmap(d.group)[2] +")"
             }  else {
               return '#FFFFFF';
             }})
