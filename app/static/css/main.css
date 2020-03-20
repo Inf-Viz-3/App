@@ -1,13 +1,15 @@
 /**
 Colour Safe Palette
 http://colorbrewer2.org/#type=diverging&scheme=RdBu&n=6
-#b2182b
-#ef8a62
-#fddbc7
-#d1e5f0
-#67a9cf
-#2166ac
 **/
+.colorclass {
+    color: #b2182b;
+    color: #ef8a62;
+    color: #fddbc7;
+    color: #d1e5f0;
+    color: #67a9cf;
+    color: #2166ac;
+}
 
 body {
     font-size: 16px;

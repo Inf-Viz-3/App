@@ -166,7 +166,7 @@ function init_pic_slider(data){
     selected = selectedV;
     barsEnter
     .merge(bars)
-    .attr('fill', d => (d.time === selectedV ? '#bad80a' : '#e0e0e0'))     
+    .attr('fill', d => (d.time === selectedV ? '#67a9cf' : '#e0e0e0'))     
     .attr("data-toggle", "tooltip")
     .attr("data-html","true")
     .attr("data-placement", "top" )
