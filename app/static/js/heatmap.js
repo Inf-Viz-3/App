@@ -114,47 +114,6 @@ readAndDrawData = function (){
           .style("text-anchor", "middle")
           .text("Centuries");
 
-      // create a tooltip
-      var tooltip = d3.select("#my_dataviz")
-          .append("div")
-          .style("opacity", 0)
-          .attr("class", "tooltip")
-          .style("background-color", "white")
-          .style("border", "solid")
-          .style("border-width", "2px")
-          .style("border-radius", "5px")
-          .style("padding", "5px");
-
-      var mouseover = function(d) {
-        tooltip.style("opacity", 1)
-      };
-      var mousemove = function(d) {
-        var text;
-        if(d.group){
-          text = "The color of this period is: <strong>" +
-              rgbToHex(colorHeatmap(d.group)[2], colorHeatmap(d.group)[1], colorHeatmap(d.group)[0]).toUpperCase() +
-              "</strong> based on <strong>" + d.count + "</strong> portraits in the most dominant color group."
-        } else{
-          text = "There is no portrait from this century and period."
-        }
-        tooltip
-            .html(text)
-            .style("left", (d3.mouse(this)[0]+70) + "px")
-            .style("top", (d3.mouse(this)[1]+ 30) +  "px")
-      }
-      var mouseleave = function(d) {
-        tooltip.style("opacity", 0)
-      }
-
-      var showDialog = function(d){
-        // Fixme remove? We can't do a filtering on groups because we have 200 in this view. Also we already have enough.
-        if(d.dominant_color){
-          // TODO: Make a html box where one can select a button to scroll to view of all the portraits with color, century and period.
-          // Which are fetched from the server with
-          alert("show portraits with skin color: " + d.dominant_color + " from " + d.century + " period " + d.period)
-        }
-      }
-
       heatmap_svg.selectAll()
           .data(data)
           .enter()
@@ -163,16 +122,31 @@ readAndDrawData = function (){
           .attr("y", function(d) { return y(d.century) })
           .attr("width", x.bandwidth() )
           .attr("height", y.bandwidth() )
+          .attr("data-toggle", "slidertooltip")
+          .attr("data-html", "true")
+          .attr("data-placement", "top")
+          // .attr("data-delay", '{"show":"1", "hide":"0"}')
+          .attr("title", (x, d, z) => {  
+            var text;
+            if(x.group){
+              text = "The color of this period is: <strong>" +
+                  rgbToHex(colorHeatmap(x.group)[2], colorHeatmap(x.group)[1], colorHeatmap(x.group)[0]).toUpperCase() +
+                  "</strong> based on <strong>" + x.count + "</strong> portraits in the most dominant color group."
+            } else{
+              text = "There is no portrait from this century and period."
+            }
+            return text
+          })
           .style("fill", function(d) {
             if (d.group !== null){
               return "rgb(" +colorHeatmap(d.group)[0] +"," +colorHeatmap(d.group)[1] +"," +colorHeatmap(d.group)[2] +")"
             }  else {
               return '#FFFFFF';
             }})
-          .on("mouseover", mouseover)
-          .on("mousemove", mousemove)
-          .on("mouseleave", mouseleave)
-          .on("click", showDialog)
+
+          $(function () {
+            $('[data-toggle="slidertooltip"]').tooltip()
+          })
 
       heatmap_svg.selectAll()
           .data(data)

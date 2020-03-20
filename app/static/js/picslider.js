@@ -171,10 +171,10 @@ function init_pic_slider(data){
     barsEnter
     .merge(bars)
     .attr('fill', d => (d.time === selectedV ? '#67a9cf' : '#e0e0e0'))     
-      .attr("data-toggle", "slidertooltip")
-      .attr("data-html", "true")
-      .attr("data-placement", "top")
-      .attr("data-delay", '{"show":"1", "hide":"0"}')
+    .attr("data-toggle", "slidertooltip")
+    .attr("data-html", "true")
+    .attr("data-placement", "top")
+    .attr("data-delay", '{"show":"1", "hide":"0"}')
     .attr("title", (x, d, z) => {   
       var face_count = x.count;
         if (x.count === 0) return "No Faces"
