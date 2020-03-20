@@ -62,7 +62,7 @@ body {
 #analyzer .container {
     /* Margin for sticky navbar */
     padding-top: 76px;
-    min-height: 75vh;
+    min-height: 85vh;
 }
 
 .svg-warped-face-container {
