@@ -15,7 +15,8 @@ metadata_df = metadata_df.set_index("id")
 faces_meta = pd.merge(faces, metadata_df, how='left', left_on='imgid', right_index=True)
 faces_meta["decade"] = (faces_meta.creation_year.floordiv(10) + 10)
 faces_meta["century"] = (faces_meta.creation_year.floordiv(100) + 1)
-faces_meta = faces_meta[faces_meta.groupby("creation_year")['creation_year'].transform('size') > 1]
+# faces_meta = faces_meta[faces_meta.groupby("creation_year")['creation_year'].transform('size') > 1]
+faces_meta = faces_meta[~faces_meta.century.isin([8,13])]
 # fetch all json
 facessim = {}
 
@@ -63,9 +64,9 @@ def get_portraits_by_year_by_params(filterObj: models.FilterObj):
 
 def female_male_filter(df, filterObj):
     if filterObj.female is True and filterObj.male is not True:
-        df = df.query('gender == "Female"')
+        df = df.query('gender == "female"')
     if filterObj.male is True and filterObj.female is not True:
-        df = df.query('gender == "Male"')
+        df = df.query('gender == "male"')
     return df
 
 def get_faces_by_params(filterObj):
@@ -78,9 +79,8 @@ def get_faces_by_params(filterObj):
         imgname = f"{filterObj.dimension_value}-{filterObj.beginDate}"
         if filterObj.selected_time == "ALL":
             imgname = filterObj.dimension_value
-        # quickfix:
         if filterObj.dimension == "gender":
-            imgname = imgname.title()
+            imgname = imgname
     else:
         if filterObj.selected_time == "ALL":
             imgname = "all"
@@ -126,7 +126,7 @@ def get_portrait_count_by_params(filterObj):
         return decadedf[['decade','count']]
 
     if filterObj.selected_time == "CENTURY":
-        res = sourcedf[sourcedf.groupby("decade")['decade'].transform('size') > 1]
+        res = sourcedf[sourcedf.groupby("century")['century'].transform('size') > 1]
         res = res.groupby(['century']).creation_year.agg('count').to_frame(
             'count').reset_index()
         res["count"] = np.log(res["count"])

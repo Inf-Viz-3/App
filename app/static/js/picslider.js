@@ -23,7 +23,7 @@ readAndDrawData = function (){
     fetchParams['beginDate'] = 0;
     fetchParams['endDate'] = 2020;
     fetchParams['age'] = age_groups;
-    fetchParams['gender'] = ["Male", "Female"];
+    fetchParams['gender'] = ["male", "female"];
     fetchParams['color'] = color_groups;
     
     url.search = new URLSearchParams(fetchParams).toString();
@@ -79,6 +79,7 @@ function update_pic_slider(data){
 
   init_pic_slider(data)
 }
+var slider;
 var selected;
 function init_pic_slider(data){
   if (filterJSParams['selected_time'] == "ALL"){
@@ -161,19 +162,23 @@ function init_pic_slider(data){
       .attr('height', d => y(0) - y(d.count))
       .attr('width', xBand.bandwidth());
 
-  var draw = selected => {
+  var draw = selectedV => {
+    selected = selectedV;
     barsEnter
     .merge(bars)
-    .attr('fill', d => (d.time === selected ? '#bad80a' : '#e0e0e0'))     
+    .attr('fill', d => (d.time === selectedV ? '#bad80a' : '#e0e0e0'))     
     .attr("data-toggle", "tooltip")
     .attr("data-html","true")
     .attr("data-placement", "top" )
     .attr("data-delay",'{"show":"1", "hide":"0"}')
-    .attr("title", (x, d, z) => {       
-        return `${Math.trunc(Math.exp(x.count)) -1 } Faces`
+    .attr("title", (x, d, z) => {   
+      var face_count = Math.ceil(Math.exp(x.count))
+      if(x.count === 0 ) return "No Faces"
+      if(face_count == 1) return "1 Face"    
+      return `${face_count } Faces`
     })
     $('[data-toggle="tooltip"]').tooltip('hide')
-    $('#rect-'+selected).tooltip('show')
+    $('#rect-'+selectedV).tooltip('show')
   };
 
   // Create Tooltips
@@ -181,7 +186,7 @@ function init_pic_slider(data){
       $('[data-toggle="tooltip"]').tooltip()
   })
 
-  var slider;
+  
   let begin = previousBegin;
   let end = previousEnd;
   
