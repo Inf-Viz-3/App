@@ -163,7 +163,7 @@ function drawInitBars(data) {
         .enter().append("g")
         .attr("class", "bar")
         .attr("fill", d => {
-            return "rgb(" + colorColDist(d.key)[2] + ", " + colorColDist(d.key)[1] + "," + colorColDist(d.key)[0] + ")"
+            return "rgb(" + colorColDist(d.key)[0] + ", " + colorColDist(d.key)[1] + "," + colorColDist(d.key)[2] + ")"
         })
         .selectAll("rect")
         // enter a second time = loop subgroup per subgroup to add all rectangles
