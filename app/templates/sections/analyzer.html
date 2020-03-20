@@ -26,18 +26,15 @@
                         <div class="svg-warped-face-container">
                             <svg class="w-100 h-100 rounded-circle shadow" id="svg-warped-face-box"
                                 viewport="0 0 1200 1200" version="1.1" xmlns="http://www.w3.org/2000/svg">
-                                <svg id="svg-masked-face-1" preserveAspectRatio="xMidYMid meet" viewBox="0 0 1200 1200">
+                                <svg id="svg-masked-face-1" style="display: none;" preserveAspectRatio="xMidYMid meet" viewBox="0 0 1200 1200">
                                     <image id="masked-face-1" class="w-100" href="../static/img/no_points.png" />
                                 </svg>
-                                <svg id="svg-masked-face-2" preserveAspectRatio="xMidYMid meet" viewBox="0 0 1200 1200">
+                                <svg id="svg-masked-face-2" style="display: none;" preserveAspectRatio="xMidYMid meet" viewBox="0 0 1200 1200">
                                     <image id="masked-face-2" class="w-100" href="../static/img/no_points.png" />
                                 </svg>
                                 <svg id="svg-masked-face-3" preserveAspectRatio="xMidYMid meet" viewBox="0 0 1200 1200">
                                     <image id="masked-face-3" href="../static/img/no_points.png" width="100%" />
                                 </svg>
-                                <use id="usebox-svg-masked-face-2" xlink:href="#svg-masked-face-2" />
-                                <use id="usebox-svg-masked-face-1" xlink:href="#svg-masked-face-1" />
-
                                 <svg id="svg-warped-face-1" preserveAspectRatio="xMidYMid meet" viewBox="0 0 1200 1200">
                                     <image id="warped-face-1" class="w-100" href="../static/img/missing_face.svg" />
                                 </svg>
@@ -49,6 +46,8 @@
                                 </svg>
                                 <use id="usebox-svg-warped-face-2" xlink:href="#svg-warped-face-2" />
                                 <use id="usebox-svg-warped-face-1" xlink:href="#svg-warped-face-1" />
+                                <use id="usebox-svg-masked-face-2" xlink:href="#svg-masked-face-2" />
+                                <use id="usebox-svg-masked-face-1" xlink:href="#svg-masked-face-1" />
                             </svg>
                         </div>
                     </div>
