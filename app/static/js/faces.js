@@ -162,7 +162,7 @@ function set_portrait(){
     let url = get_image_url(false);
     if (previousface != url) {
         previousface = url;
-        console.log("update img", url);
+        // console.log("update img", url);
         preloadFaceImg(url, warpImageFront, warpImageBack, warpBoxFront);
     }
 }
@@ -176,7 +176,7 @@ function set_portrait_mask(){
     preloadFaceImg(url, warpImageFront, warpImageBack, warpBoxFront);
     if (previousface != url) {
         previousface = url;
-        console.log("update mask img", url);
+        // console.log("update mask img", url);
         preloadFaceImg(url, warpImageFront, warpImageBack, warpBoxFront);
     }
 }
