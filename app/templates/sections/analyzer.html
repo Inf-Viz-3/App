@@ -2,13 +2,15 @@
     <div class="container">
         <div class="row">
             <div class="col-12">
-                <h1>Analyze Skin Color And The Average Face Overtime</h1>
+                <h3>OmniFace Analyzer - Explore Faces From Portraits And Their Skin Color Overtime</h3>
             </div>
-            <div>
-                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
-                industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and
-                scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap
-                into electronic typesetting, remaining essentially unchanged.
+            <div class="col-12">
+                Welcome to the OmniFace Analyzer, a multi-view analyzer that allows you to understand how artists have
+                chosen people's skin color using three different views. On the left side you can see the distribution of
+                the different skin colors. On the right side you will find the average representative face selected
+                according to the current face filter displayed below. Here you can choose between the dimensions gender, age and colour
+                group. If you want to get a deeper insight you can also browse the left diagram with the dataset filter.
+                You can also toggle between the average landmarks and explore the most similar faces below the average face.
             </div>
         </div>
         <div class="row row-eq-height pt-4 align-items-start">
@@ -26,10 +28,12 @@
                         <div class="svg-warped-face-container">
                             <svg class="w-100 h-100 rounded-circle shadow" id="svg-warped-face-box"
                                 viewport="0 0 1200 1200" version="1.1" xmlns="http://www.w3.org/2000/svg">
-                                <svg id="svg-masked-face-1" style="display: none;" preserveAspectRatio="xMidYMid meet" viewBox="0 0 1200 1200">
+                                <svg id="svg-masked-face-1" style="display: none;" preserveAspectRatio="xMidYMid meet"
+                                    viewBox="0 0 1200 1200">
                                     <image id="masked-face-1" class="w-100" href="../static/img/no_points.png" />
                                 </svg>
-                                <svg id="svg-masked-face-2" style="display: none;" preserveAspectRatio="xMidYMid meet" viewBox="0 0 1200 1200">
+                                <svg id="svg-masked-face-2" style="display: none;" preserveAspectRatio="xMidYMid meet"
+                                    viewBox="0 0 1200 1200">
                                     <image id="masked-face-2" class="w-100" href="../static/img/no_points.png" />
                                 </svg>
                                 <svg id="svg-masked-face-3" preserveAspectRatio="xMidYMid meet" viewBox="0 0 1200 1200">
