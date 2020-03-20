@@ -131,8 +131,9 @@ readAndDrawData = function (){
       var mousemove = function(d) {
         var text;
         if(d.group){
-          text = "The color of<br>this period is: " +
-              rgbToHex(colorHeatmap(d.group)[2], colorHeatmap(d.group)[1], colorHeatmap(d.group)[0]).toUpperCase()
+          text = "The color of this period is: <strong>" +
+              rgbToHex(colorHeatmap(d.group)[2], colorHeatmap(d.group)[1], colorHeatmap(d.group)[0]).toUpperCase() +
+              "</strong> based on <strong>" + d.count + "</strong> portraits in the most dominant color group."
         } else{
           text = "There is no portrait from this century and period."
         }
