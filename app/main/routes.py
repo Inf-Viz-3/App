@@ -26,10 +26,10 @@ def api_images():
 
     all_portaits = data.get_portraits_by_year_by_params(filterObj)
 
-    pag = int(index * 100)
+    pag = int(index * 20)
     all_portaits = all_portaits.drop_duplicates(subset = 'imgid')
     print('Amount of unique results for query: ', len(all_portaits))
-    return all_portaits[['imgid', 'image_url', 'artwork_name', 'artist_full_name', 'creation_year']].iloc[pag: pag + 99].to_json(
+    return all_portaits[['imgid', 'image_url', 'artwork_name', 'artist_full_name', 'creation_year']].iloc[pag: pag + 19].to_json(
         orient='records')
 
 

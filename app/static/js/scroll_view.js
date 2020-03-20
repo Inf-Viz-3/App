@@ -90,9 +90,9 @@ var scrollViewScrollHook = function () {
     let bottom_page = (document.body.offsetHeight - window.innerHeight);
     let start_offset = (heatmapView.offsetTop + heatmapView.offsetHeight  - window.innerHeight);
     let scrollY = document.documentElement.scrollTop;
-    if (scrollY < start_offset) {
-        return
-    }
+    // if (scrollY < start_offset) {
+    //     return
+    // }
 
     if (endReached) return;
 
