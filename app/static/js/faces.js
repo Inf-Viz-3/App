@@ -91,8 +91,6 @@ function fetch_data() {
 }
 
 function get_image_url(mask){
-
-    
     let base_url = "/static/img"
     let time = filterJSParams['beginDate'];
     let dimension = filterJSParams["dimension"];
@@ -135,7 +133,6 @@ function get_image_url(mask){
             imgname = imgfolder;
         }
     }
-    console.log("update img", `${base_url}/${imgfolder}/${imgname}.jpg`)
     if(mask) return `${base_url}/${imgfolder}/${imgname}_mask.png`
     return `${base_url}/${imgfolder}/${imgname}.jpg`
 }
@@ -156,13 +153,18 @@ let preloadFaceImg = function (url, frameImageFront, frameImageBack, useBoxFrame
     imgCache.src = url;
 }
 
+var previousface = null;
 function set_portrait(){
     let warpBoxBack = d3.select(`#usebox-svg-warped-face-2`);
     let warpBoxFront = d3.select(`#usebox-svg-warped-face-1`);
     let warpImageBack = d3.select(`#warped-face-2`)
     let warpImageFront = d3.select(`#warped-face-1`)
     let url = get_image_url(false);
-    preloadFaceImg(url, warpImageFront, warpImageBack, warpBoxFront);
+    if (previousface != url) {
+        previousface = url;
+        console.log("update img", url);
+        preloadFaceImg(url, warpImageFront, warpImageBack, warpBoxFront);
+    }
 }
 
 function set_portrait_mask(){
@@ -172,6 +174,11 @@ function set_portrait_mask(){
     let warpImageFront = d3.select(`#masked-face-1`)
     let url = get_image_url(true);
     preloadFaceImg(url, warpImageFront, warpImageBack, warpBoxFront);
+    if (previousface != url) {
+        previousface = url;
+        console.log("update mask img", url);
+        preloadFaceImg(url, warpImageFront, warpImageBack, warpBoxFront);
+    }
 }
 
 function toggle(){
