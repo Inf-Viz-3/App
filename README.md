@@ -2,7 +2,7 @@
 
 ## Meeting notes
 
-You can find the meetings notes on a by-weekly basis [here](docs/Meetings.md).
+You can find the meetings notes [here](docs/Meetings.md).
 
 ## Development
 
